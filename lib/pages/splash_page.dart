@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chronoscope/constants/colors.dart';
 import 'package:chronoscope/constants/slogan.dart';
-import 'package:chronoscope/providers/login_provider.dart';
+import 'package:chronoscope/providers/home_provider.dart';
 import 'package:chronoscope/providers/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -22,11 +22,11 @@ class _SplashPageState extends State<SplashPage> {
   bool isLogged = false;
   int animateTextKey = 0;
 
-  Future<bool> checkLoginSaved() async {
+  Future checkLogged() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final bool? checkSaved = prefs.getBool('isLoginSaved');
-    if (checkSaved != null) {
-      return checkSaved;
+    if (prefs.getString('token') != null &&
+        prefs.getString('token')!.isNotEmpty) {
+      return true;
     } else {
       return false;
     }
@@ -34,9 +34,13 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    checkLoginSaved().then((value) {
-      Provider.of<LoginProvider>(context, listen: false).isLoginSaved = value;
+    checkLogged().then((value) {
+      isLogged = value;
+      if (value) {
+        context.read<HomeProvider>().fetchStories();
+      }
     });
+
     context.read<SplashProvider>().slogan =
         slogans[Random().nextInt(slogans.length)];
     super.initState();
@@ -74,7 +78,11 @@ class _SplashPageState extends State<SplashPage> {
                       Future.delayed(
                         const Duration(milliseconds: 300),
                         () {
-                          context.go('/login');
+                          if (isLogged) {
+                            context.go('/');
+                          } else {
+                            context.go('/login');
+                          }
                         },
                       );
                     }

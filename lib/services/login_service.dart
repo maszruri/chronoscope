@@ -11,5 +11,9 @@ Future<LoginResponse> sendLoginRequest(String email, String password) async {
         "email": email,
         "password": password,
       }));
-  return LoginResponse.fromJson(json.decode(response.body));
+  if (response.statusCode == 201) {
+    return LoginResponse.fromJson(json.decode(response.body));
+  } else {
+    return LoginResponse.fromJson(json.decode(response.body));
+  }
 }

@@ -6,11 +6,13 @@ class InputField extends StatelessWidget {
   final Icon pIcon;
   final Icon? sIcon;
   final String hint;
+  final TextInputType textInputType;
   const InputField({
     super.key,
     required this.hint,
     required this.textEditingController,
     required this.pIcon,
+    required this.textInputType,
     this.sIcon,
   });
 
@@ -25,6 +27,7 @@ class InputField extends StatelessWidget {
       child: TextFormField(
         controller: textEditingController,
         style: const TextStyle(color: accentColor),
+        keyboardType: textInputType,
         decoration: InputDecoration(
           prefixIcon: pIcon,
           prefixIconColor: secondaryColor,
