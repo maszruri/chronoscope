@@ -28,16 +28,23 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  camera:
+  image:
+  liquid_pull_to_refresh:
+  image_picker:
+  flip_card:
   internet_connection_checker:
   flutter_dotenv:
   http:
-  msh_checkbox:
   auto_size_text:
   provider:
   animated_text_kit:
   go_router:
   shared_preferences:
+  intl:
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
 
 
@@ -77,6 +84,8 @@ flutter:
   assets:
     - .env
     - .env.example
+
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

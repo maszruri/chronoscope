@@ -1,0 +1,12 @@
+{
+  "name": "Name",
+  "login": "Login",
+  "register": "Register",
+  "home": "Home",
+  "profile": "Profile",
+  "logout": "Logout",
+  "upload": "Upload",
+  "description": "Description",
+  "gallery": "Gallery",
+  "camera": "Camera"
+}

@@ -9,9 +9,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginProvider extends ChangeNotifier {
   bool isLoading = false;
   bool isError = false;
+  bool isObscure = true;
 
   String message = "";
   dynamic response;
+
+  toggleObscure() {
+    isObscure = !isObscure;
+    notifyListeners();
+  }
 
   Future<Map> restoreEmailPassword() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -50,8 +56,6 @@ class LoginProvider extends ChangeNotifier {
         if (isError) {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
           context.go('/');
         }
       });

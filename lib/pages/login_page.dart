@@ -5,6 +5,7 @@ import 'package:chronoscope/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -63,19 +64,31 @@ class _LoginPageState extends State<LoginPage> {
                           pIcon: const Icon(Icons.email),
                         ),
                         const SizedBox(height: 25),
-                        InputField(
-                          hint: 'Password',
-                          textEditingController: passwordController,
-                          textInputType: TextInputType.text,
-                          pIcon: const Icon(Icons.password),
-                          sIcon: const Icon(
-                            Icons.remove_red_eye,
-                            size: 5,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: InputField(
+                                hint: 'Password',
+                                textEditingController: passwordController,
+                                textInputType: TextInputType.text,
+                                pIcon: const Icon(Icons.password),
+                                isObscure:
+                                    context.watch<LoginProvider>().isObscure,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                context.read<LoginProvider>().toggleObscure();
+                              },
+                              icon: const Icon(Icons.remove_red_eye,
+                                  color: secondaryColor),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 25),
                         SubmitButton(
-                          text: "Login",
+                          text: AppLocalizations.of(context)!.login,
                           onPressed: () {
                             String email = emailController.text.trim();
                             String password = passwordController.text.trim();
@@ -86,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 25),
                         SubmitButton(
-                          text: "Register",
+                          text: AppLocalizations.of(context)!.register,
                           onPressed: () {
                             context.pushNamed('register');
                           },

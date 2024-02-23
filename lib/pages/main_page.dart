@@ -3,6 +3,7 @@ import 'package:chronoscope/providers/main_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatelessWidget {
   final Widget child;
@@ -17,9 +18,13 @@ class MainPage extends StatelessWidget {
         unselectedItemColor: secondaryColor,
         currentIndex: context.watch<MainProvider>().navigationIndex,
         onTap: (value) => _onTap(value, context),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        items: [
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              label: AppLocalizations.of(context)!.home),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.person),
+              label: AppLocalizations.of(context)!.profile),
         ],
       ),
       body: child,
@@ -35,6 +40,7 @@ class MainPage extends StatelessWidget {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      resizeToAvoidBottomInset: false,
     );
   }
 

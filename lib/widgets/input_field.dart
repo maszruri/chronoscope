@@ -4,16 +4,18 @@ import 'package:flutter/material.dart';
 class InputField extends StatelessWidget {
   final TextEditingController textEditingController;
   final Icon pIcon;
-  final Icon? sIcon;
   final String hint;
   final TextInputType textInputType;
+  final Widget? suffix;
+  final bool? isObscure;
   const InputField({
     super.key,
     required this.hint,
     required this.textEditingController,
     required this.pIcon,
     required this.textInputType,
-    this.sIcon,
+    this.isObscure,
+    this.suffix,
   });
 
   @override
@@ -23,8 +25,9 @@ class InputField extends StatelessWidget {
         border: Border.all(color: secondaryColor),
         borderRadius: BorderRadius.circular(10),
       ),
-      // padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.only(right: 10),
       child: TextFormField(
+        obscureText: isObscure ?? false,
         controller: textEditingController,
         style: const TextStyle(color: accentColor),
         keyboardType: textInputType,
@@ -32,6 +35,7 @@ class InputField extends StatelessWidget {
           prefixIcon: pIcon,
           prefixIconColor: secondaryColor,
           hintText: hint,
+          suffix: suffix,
         ),
       ),
     );

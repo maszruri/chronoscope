@@ -5,7 +5,14 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 class RegisterProvider extends ChangeNotifier {
   bool isLoading = false;
   bool isError = false;
+  bool isObscure = true;
+
   String message = "";
+
+  toggleObscure() {
+    isObscure = !isObscure;
+    notifyListeners();
+  }
 
   Future<void> registration(
       String name, String email, String password, BuildContext context) async {
@@ -24,6 +31,12 @@ class RegisterProvider extends ChangeNotifier {
         isLoading = false;
         notifyListeners();
         if (isError) {
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          final snackBar = SnackBar(
+            content: Text("Register Success, Please Login!"),
+          );
+
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       });

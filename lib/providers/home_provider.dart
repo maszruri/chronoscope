@@ -1,15 +1,21 @@
+import 'package:chronoscope/models/stories_model.dart';
 import 'package:chronoscope/services/stories_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeProvider extends ChangeNotifier {
   bool isLoading = false;
-  dynamic storiesModel;
+  StoriesModel? storiesModel;
   String token = "";
 
   Future getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.get('token');
+  }
+
+  Future refreshStories() async {
+    fetchStories();
+    notifyListeners();
   }
 
   fetchStories() {

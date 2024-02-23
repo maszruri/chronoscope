@@ -1,0 +1,12 @@
+{
+  "name": "Nama",
+  "login": "Masuk",
+  "register": "Daftar",
+  "home": "Beranda",
+  "profile": "Profil",
+  "logout": "Keluar",
+  "upload": "Unggah",
+  "description": "Deskripsi",
+  "gallery": "Galeri",
+  "camera": "Kamera"
+}

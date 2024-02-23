@@ -6,19 +6,20 @@ import 'package:chronoscope/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmController = TextEditingController();
 
   RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    final local = AppLocalizations.of(context)!;
 
     return Stack(
       children: [
@@ -52,7 +53,7 @@ class RegisterPage extends StatelessWidget {
                     child: Column(
                       children: [
                         InputField(
-                          hint: 'Name',
+                          hint: local.name,
                           textEditingController: nameController,
                           textInputType: TextInputType.name,
                           pIcon: const Icon(Icons.person),
@@ -65,22 +66,32 @@ class RegisterPage extends StatelessWidget {
                           pIcon: const Icon(Icons.email),
                         ),
                         const SizedBox(height: 25),
-                        InputField(
-                          hint: 'Password',
-                          textInputType: TextInputType.text,
-                          textEditingController: passwordController,
-                          pIcon: const Icon(Icons.password),
-                        ),
-                        const SizedBox(height: 25),
-                        InputField(
-                          hint: 'Confirm Password',
-                          textInputType: TextInputType.text,
-                          textEditingController: confirmController,
-                          pIcon: const Icon(Icons.password),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: InputField(
+                                hint: 'Password',
+                                textInputType: TextInputType.text,
+                                textEditingController: passwordController,
+                                pIcon: const Icon(Icons.password),
+                                isObscure:
+                                    context.watch<RegisterProvider>().isObscure,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                context
+                                    .read<RegisterProvider>()
+                                    .toggleObscure();
+                              },
+                              icon: const Icon(Icons.remove_red_eye,
+                                  color: secondaryColor),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 25),
                         SubmitButton(
-                          text: "Register",
+                          text: local.register,
                           onPressed: () {
                             final String name = nameController.text.trim();
                             final String email = emailController.text.trim();
@@ -93,7 +104,7 @@ class RegisterPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 25),
                         SubmitButton(
-                          text: "Login",
+                          text: local.login,
                           onPressed: () {
                             context.pop();
                           },

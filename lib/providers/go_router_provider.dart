@@ -1,4 +1,6 @@
-import 'package:chronoscope/pages/add_page.dart';
+import 'package:chronoscope/pages/camera_page.dart';
+import 'package:chronoscope/pages/detail_page.dart';
+import 'package:chronoscope/pages/upload_page.dart';
 import 'package:chronoscope/pages/home_page.dart';
 import 'package:chronoscope/pages/login_page.dart';
 import 'package:chronoscope/pages/main_page.dart';
@@ -81,7 +83,7 @@ GoRouter router = GoRouter(
           path: '/addStory',
           pageBuilder: (context, state) {
             return CustomTransitionPage(
-              child: const AddPage(),
+              child: UploadPage(),
               transitionDuration: const Duration(seconds: 1),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
@@ -92,8 +94,48 @@ GoRouter router = GoRouter(
               },
             );
           },
+          routes: [
+            GoRoute(
+              path: 'camera',
+              name: 'customCamera',
+              pageBuilder: (context, state) {
+                final List cameras = state.extra as List;
+                return CustomTransitionPage(
+                  child: CameraPage(
+                    cameras: cameras,
+                  ),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    const begin = Offset(1.0, 0.0);
+                    const end = Offset.zero;
+                    const curve = Curves.ease;
+
+                    final tween = Tween(begin: begin, end: end);
+                    final curvedAnimation = CurvedAnimation(
+                      parent: animation,
+                      curve: curve,
+                    );
+
+                    return SlideTransition(
+                      position: tween.animate(curvedAnimation),
+                      child: child,
+                    );
+                  },
+                );
+              },
+            ),
+          ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/detail/:id',
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        return DetailPage(
+          id: id,
+        );
+      },
     ),
     GoRoute(
       path: '/login',
