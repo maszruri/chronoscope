@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailProvider extends ChangeNotifier {
   String token = "";
-  bool isLoading = false;
+  bool isLoading = true;
   StoryModel? storyModel;
 
   Future getToken() async {

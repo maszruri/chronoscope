@@ -5,6 +5,7 @@ import 'package:chronoscope/services/upload_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UploadProvider extends ChangeNotifier {
   String? imagePath;
@@ -32,11 +33,12 @@ class UploadProvider extends ChangeNotifier {
     final fileName = imageFile!.name;
     final bytes = await imageFile!.readAsBytes();
     final newBytes = await compressImage(bytes);
-
+    if (!context.mounted) return;
     await upload(
       newBytes,
       fileName,
       description,
+      context,
     );
     if (uploadResponse != null) {
       setImageFile(null);
@@ -52,6 +54,7 @@ class UploadProvider extends ChangeNotifier {
     List<int> bytes,
     String fileName,
     String description,
+    BuildContext context,
   ) async {
     try {
       message = "";
@@ -60,7 +63,8 @@ class UploadProvider extends ChangeNotifier {
       notifyListeners();
       uploadResponse =
           await apiService.uploadDocument(bytes, fileName, description);
-      message = uploadResponse?.message ?? "success";
+      if (!context.mounted) return;
+      message = AppLocalizations.of(context)!.uploadSuccess;
       isUploading = false;
       notifyListeners();
     } catch (e) {

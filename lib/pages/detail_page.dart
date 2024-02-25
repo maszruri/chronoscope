@@ -1,7 +1,6 @@
 import 'package:chronoscope/constants/colors.dart';
 import 'package:chronoscope/models/story_model.dart';
 import 'package:chronoscope/providers/detail_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +50,7 @@ class _DetailPageState extends State<DetailPage> {
               child: CircularProgressIndicator(),
             );
           } else {
-            return child!;
+            return child ?? Container();
           }
         },
         child: DetailWidget(

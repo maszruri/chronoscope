@@ -8,5 +8,11 @@
   "upload": "Unggah",
   "description": "Deskripsi",
   "gallery": "Galeri",
-  "camera": "Kamera"
+  "camera": "Kamera",
+  "customCamera": "Kustom Kamera",
+  "takePicture": "Ambil Gambar",
+  "uploadError": "Silahkan diisi yang diperlukan",
+  "uploadSuccess": "Unggah selesai!"
+
+
 }

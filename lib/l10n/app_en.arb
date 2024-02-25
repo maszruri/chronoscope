@@ -8,5 +8,9 @@
   "upload": "Upload",
   "description": "Description",
   "gallery": "Gallery",
-  "camera": "Camera"
+  "camera": "Camera",
+  "customCamera": "Custom Camera",
+  "takePicture": "Take Picture",
+  "uploadError": "Please fill all requirement",
+  "uploadSuccess": "Upload Complete!"
 }

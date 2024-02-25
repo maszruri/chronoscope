@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key, required this.cameras});
@@ -72,7 +73,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
       data: ThemeData.dark(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Ambil Gambar"),
+          title: Text(AppLocalizations.of(context)!.takePicture),
           actions: [
             IconButton(
               onPressed: () => _onCameraSwitch(),
@@ -101,7 +102,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   Widget _actionWidget() {
     return FloatingActionButton(
       heroTag: "take-picture",
-      tooltip: "Ambil Gambar",
+      tooltip: AppLocalizations.of(context)!.takePicture,
       onPressed: () =>
           _onCameraButtonClick().then((value) => context.pop(value)),
       child: const Icon(Icons.camera_alt),

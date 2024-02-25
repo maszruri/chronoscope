@@ -85,7 +85,7 @@ class UploadContainer extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               SubmitButton(
-                  text: 'Custom Camera',
+                  text: AppLocalizations.of(context)!.customCamera,
                   onPressed: () {
                     onCustomCameraView(context)
                         .whenComplete(() => flipCardController.toggleCard());
